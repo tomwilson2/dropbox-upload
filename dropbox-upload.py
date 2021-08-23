@@ -16,9 +16,13 @@ if len(sys.argv) == 1 or not isfile(sys.argv[1]):
 file_path = sys.argv[1]
 file_size = getsize(file_path)
 # TODO temporary fix for saving files with same names from different paths
-file_name = file_path.replace('/','&')
+# file_name = file_path.replace('/','&')
+file_name = basename(file_path)
 file = open(file_path, 'rb')
-destination_path = '/' + file_name
+if sys.argv[2]:
+    destination_path = '/' + sys.argv[2] + '/' + file_name
+else:
+    destination_path = '/' + file_name
 dbx = dropbox.Dropbox(access_token)
 
 if file_size <= chunk_size:
